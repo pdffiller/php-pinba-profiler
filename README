@@ -1,0 +1,31 @@
+How to use
+
+Example 1
+
+//Load Pinba Class
+include_once '../classes/TProfile.php';
+
+//initialize
+TProfile::init();
+
+
+Example 2
+
+//Load Pinba Class
+include_once '../classes/TProfile.php';
+
+$tags = array('category'=>'Database', 'group'=>'TDb::connect');
+
+TProfile::timerStart($tags);
+
+/*
+
+Your PHP code
+
+*/
+
+TProfile::timerStop($tags);
+
+
+category: Database, Memcache, API etc
+group: TDb - subgroup, connect - operation
