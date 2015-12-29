@@ -44,27 +44,15 @@ class TProfile {
             return false;
         }
 
-        if (!isset($options['category'])){
-            $options['category'] = 'Other';
-        }
-
-        if (!isset($options['group'])){
-            $options['group'] = 'other::other';
-        }
-
-        if (!isset($options['__hostname'])){
-            $options['__hostname'] = $_SERVER['HTTP_HOST'];
-        }
-
-        if (!isset($options['__server_name'])){
-            $options['__server_name'] = self::$hostName;
-        }
-
-
-        $name = self::getTimerName($options);
-
         if (self::init()){
+
+            $options = self::noramlizeOptions($options);
+            $name    = self::getTimerName($options);
+
+            //TLog::write('start: '.$name. 'dedug:'.json_encode(debug_backtrace()), 'TProfile.log');
+
             self::$timer[$name][] = pinba_timer_start($options);
+
             return true;
         }
 
@@ -75,7 +63,10 @@ class TProfile {
 
         if (self::init()){
 
+            $options   = self::noramlizeOptions($options);
             $timerName = self::getTimerName($options);
+
+            TLog::write('stop: '.$timerName. 'dedug:'.json_encode(debug_backtrace()), 'TProfile.log');
 
             if (isset(self::$timer[$timerName])){
 
@@ -97,6 +88,27 @@ class TProfile {
     private static function getTimerName($array){
         asort($array);
         return md5(serialize($array));
+    }
+
+    public static function noramlizeOptions($options){
+
+        if (!isset($options['category'])){
+            $options['category'] = 'Other';
+        }
+
+        if (!isset($options['group'])){
+            $options['group'] = 'other::other';
+        }
+
+        if (!isset($options['__hostname'])){
+            $options['__hostname'] = $_SERVER['HTTP_HOST'];
+        }
+
+        if (!isset($options['__server_name'])){
+            $options['__server_name'] = self::$hostName;
+        }
+
+        return $options;
     }
 
 }
