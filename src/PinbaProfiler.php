@@ -1,7 +1,7 @@
 <?php
-namespace Pdffiller\TProfile;
+namespace Pdffiller\PinbaProfiler;
 
-class TProfile {
+class PinbaProfiler {
 
     public    static $timer       = array();
     public    static $isLoaded    = false;
