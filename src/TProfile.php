@@ -1,5 +1,5 @@
 <?php
-
+namespace Pdffiller\TProfile;
 
 class TProfile {
 
@@ -66,8 +66,6 @@ class TProfile {
             $options   = self::noramlizeOptions($options);
             $timerName = self::getTimerName($options);
 
-            TLog::write('stop: '.$timerName. 'dedug:'.json_encode(debug_backtrace()), 'TProfile.log');
-
             if (isset(self::$timer[$timerName])){
 
                 $timer = array_pop(self::$timer[$timerName]);
@@ -101,7 +99,12 @@ class TProfile {
         }
 
         if (!isset($options['__hostname'])){
-            $options['__hostname'] = $_SERVER['HTTP_HOST'];
+
+            if (!isset($_SERVER['HTTP_HOST'])){
+                $options['__hostname'] = self::$hostName;
+            }else {
+                $options['__hostname'] = $_SERVER['HTTP_HOST'];
+            }
         }
 
         if (!isset($options['__server_name'])){

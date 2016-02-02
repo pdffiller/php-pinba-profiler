@@ -28,4 +28,7 @@ TProfile::timerStop($tags);
 
 
 category: Database, Memcache, API etc
-group: TDb - subgroup, connect - operation
+group: TDb - subgroup or class, connect - operation
+
+
+group must be separated with ::

@@ -1,0 +1,16 @@
+{
+  "name": "pdffiller/tprofile",
+  "description": "Simple profiler class for Intaro Pinboard",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dmytro Sychevsky",
+      "email": "sych@pdffiller.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pdffiller\\TProfile\\": "src"
+    }
+  }
+}
