@@ -1,34 +1,40 @@
-How to use
+-How to use
 
-Example 1
+1) Install Pinba php extension, Pinba Engine with Intaro Pinboard
+2) Modify your composer json
 
-//Load Pinba Class
-include_once '../classes/TProfile.php';
+```json
+ {
+     "require": {
+         "pdffiller/php-pinba-profiler": "dev-master"
+     },
+   "repositories": [
+         {
+             "type": "vcs",
+             "url":  "https://github.com/pdffiller/php-pinba-profiler.git"
+         }
+     ]
+ }
+```
 
-//initialize
-TProfile::init();
+3) add timers to your code
 
+```php
+<?php
+require('vendor/autoload.php');
 
-Example 2
+use Pdffiller\PinbaProfiler\PinbaProfiler;
 
-//Load Pinba Class
-include_once '../classes/TProfile.php';
+$tags = array('category'=>'Database', 'group'=>'ClassName::method', 'mytag'=>'tagValue');
 
-$tags = array('category'=>'Database', 'group'=>'TDb::connect');
+PinbaProfiler::timerStart($tags);
 
-TProfile::timerStart($tags);
+sleep(1);
 
-/*
-
-Your PHP code
-
-*/
-
-TProfile::timerStop($tags);
-
+PinbaProfiler::timerStop($tags);
+```
 
 category: Database, Memcache, API etc
 group: TDb - subgroup or class, connect - operation
-
 
 group must be separated with ::
