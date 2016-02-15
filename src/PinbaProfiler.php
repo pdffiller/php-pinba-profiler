@@ -59,6 +59,33 @@ class PinbaProfiler {
         return false;
     }
 
+    /**
+     * @param string $title Ex: Keen.IO
+     * @param string $methodName method name must be delimited with :: Ex. Keen::addEvents
+     * @return array
+     */
+    public static function getRequiredOptions($title, $methodName, $additionalOptions = []) {
+        $pinbaTagsTemplate = [
+            'category' => $title,
+            'group' => $methodName
+        ];
+
+        return array_merge($pinbaTagsTemplate,$additionalOptions);
+    }
+
+    /**
+     * @param $options
+     * @param integer $timeInMilliseconds 1sec = 1000ms
+     * @return bool
+     */
+    public static function timerAndStop($options, $timeInMilliseconds) {
+        if (self::init()){
+            return pinba_timer_add($options, $timeInMilliseconds);
+        }
+
+        return false;
+    }
+
     public static function timerStop($options){
 
         if (self::init()){
