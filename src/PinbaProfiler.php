@@ -141,4 +141,16 @@ class PinbaProfiler {
         return $options;
     }
 
+    /**
+     * Useful when you need to send request data to the server immediately (for long running scripts)
+     *
+     * @param string|null $scriptName
+     * @param int|null $flag
+     */
+    public static function flush($scriptName = null, $flag = PINBA_FLUSH_ONLY_STOPPED_TIMERS)
+    {
+        if (self::init()) {
+            pinba_flush($scriptName, $flag);
+        }
+    }
 }
